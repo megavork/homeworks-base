@@ -15,4 +15,22 @@ public class AppTest {
     public void shouldAnswerWithTrue() {
         assertTrue(1 > 0);
     }
+
+    @Test
+    public void getMaxValue() {
+        int max = App.showMax(3, 9);
+        assertEquals(9, max);
+    }
+
+    @Test
+    public void getAnotherMaxValue() {
+        int max = App.showMax(9, 3);
+        assertEquals(9, max);
+    }
+
+    @Test
+    public void getAnotherMinValue() {
+        int max = App.showMax(9, 3);
+        assertEquals(3, max);
+    }
 }
