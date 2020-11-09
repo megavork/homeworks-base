@@ -27,10 +27,4 @@ public class AppTest {
         int max = App.showMax(9, 3);
         assertEquals(9, max);
     }
-
-    @Test
-    public void getAnotherMinValue() {
-        int max = App.showMax(9, 3);
-        assertEquals(3, max);
-    }
 }
