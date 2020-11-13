@@ -1,4 +1,4 @@
-package homeTask5;
+package Denis_Belski.homeDoubleMass;
 
 import java.util.Arrays;
 import java.util.Random;
