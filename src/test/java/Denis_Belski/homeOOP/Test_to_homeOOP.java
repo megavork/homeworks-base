@@ -1,4 +1,4 @@
-package Denis_Belski;
+package Denis_Belski.homeOOP;
 
 import Denis_Belski.homeOOP.homeOOP_Computer;
 import org.example.App;
