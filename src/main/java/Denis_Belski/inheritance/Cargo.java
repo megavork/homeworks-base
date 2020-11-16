@@ -9,13 +9,7 @@ public class Cargo extends Ground{
         this.countOfFreight = countOfFreight;
     }
     public void showAll() {
-        System.out.println("Brand: "+this.brand);
-        System.out.println("Max speed km/h: "+this.maxSpeed);
-        System.out.println("Power h/p: "+this.power);
-        System.out.println("Power kW: "+this.power*0.74);
-        System.out.println("Mass kg: "+this.mass);
-        System.out.println("Count of wheels: "+this.countOfWheels);
-        System.out.println("Fuel consumption L/100km: "+this.countOfFuel);
+        super.showAll();
         System.out.println("Count of freight kg: "+this.countOfFreight);
     }
 
