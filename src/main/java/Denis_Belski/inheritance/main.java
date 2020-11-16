@@ -15,13 +15,13 @@ public class main {
         cargo.checkFreeSpace(200);
             System.out.println();
 
-        Civil civil = new Civil(278,120,9761,"Aerobus",20, 2430, 126, true);
+        Civil civil = new Civil(980,320,9761,"Aerobus",20, 2430, 126, true);
         civil.showAll();
             System.out.println();
         civil.checkFreeSpace(140);
             System.out.println();
 
-        Military military = new Military(278,120,9761,"Aerobus",20, 2430, 3, true);
+        Military military = new Military(1280,485,11761,"Boing",27, 3081, 3, true);
         military.showAll();
             System.out.println();
         military.checkEjection();

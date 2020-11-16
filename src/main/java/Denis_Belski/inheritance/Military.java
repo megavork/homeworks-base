@@ -16,8 +16,8 @@ public class Military extends Air{
     @Override
     public void showAll() {
         super.showAll();
-        System.out.println("Count of wheels: "+this.countOfRocket);
-        System.out.println("Fuel consumption L/100km: "+this.isEjectSystem);
+        System.out.println("Is eject system: "+this.isEjectSystem);
+        System.out.println("Count of rocket: "+this.countOfRocket);
     }
 
     public void checkShot() {

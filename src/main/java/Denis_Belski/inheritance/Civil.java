@@ -14,8 +14,8 @@ public class Civil extends  Air{
     @Override
     public void showAll() {
         super.showAll();
-        System.out.println("Count of wheels: "+this.countOfPeople);
-        System.out.println("Fuel consumption L/100km: "+this.isBusinessClass);
+        System.out.println("Count of people: "+this.countOfPeople);
+        System.out.println("Is business class: "+this.isBusinessClass);
     }
 
     public void checkFreeSpace(int workload) {

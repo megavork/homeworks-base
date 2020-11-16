@@ -14,8 +14,8 @@ public class Air extends  Transport{
     @Override
     public void showAll() {
         super.showAll();
-        System.out.println("Count of wheels: "+this.lenOfWings);
-        System.out.println("Fuel consumption L/100km: "+this.minLenOfRunway);
+        System.out.println("Len of wings: "+this.lenOfWings);
+        System.out.println("Min len of runway km: "+this.minLenOfRunway);
     }
 
 }
