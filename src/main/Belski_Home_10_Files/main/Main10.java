@@ -1,5 +1,6 @@
 package main;
 
+import Classes.AutoCar;
 import Classes.BlackList;
 import Classes.TextFormatter;
 import Classes.WordFormatter;
@@ -22,6 +23,23 @@ public class Main10 {
         System.out.println("Exercise 3.");
         BlackList.getBlackList();
         BlackList.readAndCheckText();
+
+        System.out.println("Exercise 4.");
+            try (ObjectOutputStream outS = new ObjectOutputStream(new FileOutputStream("Ser.txt"))){
+                AutoCar car = new AutoCar("BMW",250.0,10532460);
+                outS.writeObject(car);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        try (ObjectInputStream inS = new ObjectInputStream(new FileInputStream("Ser.txt"))){
+            AutoCar car = (AutoCar) inS.readObject();
+            System.out.println(car.getBrand());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 
