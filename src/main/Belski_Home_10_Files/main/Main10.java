@@ -1,5 +1,6 @@
 package main;
 
+import Classes.BlackList;
 import Classes.TextFormatter;
 import Classes.WordFormatter;
 
@@ -17,7 +18,19 @@ public class Main10 {
 
         System.out.println("Exercise 2.");
         readFile();
+
+        System.out.println("Exercise 3.");
+        BlackList.getBlackList();
+        BlackList.readAndCheckText();
     }
+
+
+
+
+
+
+
+
     private static void writeFile(String line) throws IOException {
         FileWriter file = new FileWriter("textOut2.txt",true);
 
@@ -49,10 +62,8 @@ public class Main10 {
                 }
                 oneLine += oneSymbol;
                 int countWords = TextFormatter.getWordCount(oneLine);
-                if(TextFormatter.checkPalindromWords(oneLine)) {
-                    writeFile(oneLine);
-                    oneLine = "";
-                } else if(countWords > 3 && countWords < 6) {
+
+                if(TextFormatter.checkPalindromWords(oneLine) || (countWords > 3 && countWords < 6)) {
                     writeFile(oneLine);
                     oneLine = "";
                 }
