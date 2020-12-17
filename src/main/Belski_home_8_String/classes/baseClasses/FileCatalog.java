@@ -102,6 +102,7 @@ public class FileCatalog {
         //Step 1 - check main dir:
         if(absolutePath[0].isEmpty()) {
             if (FileCatalog.checkPathFromMainDir(absolutePath[1]) < 0) {
+                System.out.println("Bad value or path already exist.");
                 return;
             }
             //Step 2 - get object contains pre last path.

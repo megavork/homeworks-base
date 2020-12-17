@@ -1,7 +1,6 @@
 package classes.baseClasses;
 
 import classes.actions.Pwd;
-
 import java.util.ArrayList;
 
 /**

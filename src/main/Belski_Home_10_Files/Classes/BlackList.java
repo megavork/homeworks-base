@@ -65,7 +65,6 @@ public class BlackList {
         }
 
     }
-
     /**
      * check contains line blacklist words or not.
      * if contains will return true.
