@@ -106,6 +106,7 @@ public class FileCatalog {
                 return;
             }
             //Step 2 - get object contains pre last path.
+
             // last path we should create.
             MyBase base = FileCatalog.getObjectFromMainList(absolutePath[1]);
             for (int i = 2; i < absolutePath.length - 1; i++) {
