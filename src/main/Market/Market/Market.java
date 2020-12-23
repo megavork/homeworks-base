@@ -4,11 +4,12 @@ public class Market {
     MarketBase base;
     public Market() {
         base = new MarketBase();
+        base.generateItems();
     }
 
     public boolean checkAction() {
         int number = CustomerInput.getIntegerInputAnswer("options number");
-        base.generateItems();
+
         switch (number) {
             case 1: base.showAllItems(); return true;
             case 2: base.sortByPrice(); return true;

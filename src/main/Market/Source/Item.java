@@ -1,9 +1,6 @@
 package Source;
 
-import java.util.Comparator;
-import java.util.Objects;
-
-public class Item {
+public class Item implements Comparable<Item>{
     private final int ID;
     private String name = "";
     private double price = 0;
@@ -34,14 +31,16 @@ public class Item {
         this.price = price;
     }
 
+    public void showItemList() {
+        System.out.printf("   ID: %-10d Name: %-10s Price: %-6.2f%n",ID,name,price);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Item item = (Item) o;
-        return ID == item.ID &&
-                Double.compare(item.price, price) == 0 &&
-                Objects.equals(name, item.name);
+        return Double.compare(item.price, price) == 0;
     }
 
     @Override
@@ -57,8 +56,12 @@ public class Item {
         return result;
     }
 
-    @Override
     public String toString() {
-        return "ID=" + ID + " name=" + name + " price=" + price + "\n";
+        return String.format("ID: %-10d Name: %-10s Price: %-6.2f%n",ID,name,price);
+    }
+
+    @Override
+    public int compareTo(Item o) {
+        return (int)(this.price - o.price);
     }
 }

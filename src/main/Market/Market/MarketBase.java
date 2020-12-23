@@ -1,33 +1,26 @@
 package Market;
 
+import MySOUT.Debug;
 import Source.Item;
 
-import java.util.HashMap;
+import java.util.*;
 
 public class MarketBase {
-    private HashMap<Integer,Item> base = new HashMap();
+    private HashMap<Integer,Item> mainItemBase = new HashMap<>();
+    private ArrayList<Integer> itemListOrderedByAddition = new ArrayList<>();
 
     public MarketBase() {
-    }
-
-    /**
-     * return object or null if no objects
-     * @param hashCode
-     * @return
-     */
-    public Item getItem(int hashCode) {
-        return base.get(hashCode);
     }
 
     /**
      * put new Item to market base ant return true
      */
     public boolean setItemToBase() {
-        //делаем опрос на поля
         Item item = new Item(CustomerInput.getStringInputAnswer("name"),CustomerInput.getDoubleInputAnswer("price"));
 
-        if(!base.containsValue(item.getID())) {    //if base do not contains this hashCode
-            base.put(item.getID(),item);         //put object
+        if(!mainItemBase.containsValue(item.getID())) {    //if base do not contains this hashCode
+            mainItemBase.put(item.getID(),item);           //put object
+            itemListOrderedByAddition.add(item.getID());
             return true;
         } else {
             return false;
@@ -41,23 +34,51 @@ public class MarketBase {
     public boolean removeItemFromBase() {
         int itemID = CustomerInput.getIntegerInputAnswer("ID or enter 0 to exit");
 
-        if (base.containsKey(itemID)) {
-            base.remove(itemID);
+        if (mainItemBase.containsKey(itemID)) {
+            Item item = mainItemBase.get(itemID);
+            mainItemBase.remove(itemID);
+            itemListOrderedByAddition.remove(item);
             return true;
         } else {
+            System.out.println("ID did not find.");
             return false;
         }
     }
 
+    /**
+     * just to show all Items
+     */
     public void showAllItems() {
-        System.out.println(base.values().toString());
+        System.out.println(mainItemBase
+                .values()
+                .toString()
+                .replace(", ","")
+                .replace("[","")
+                .replace("]",""));
+        Debug.sout(mainItemBase.size());
     }
 
+    /**
+     * mainItemBase will sort by price value
+     */
     public void sortByPrice() {
-        //TODO:
+        List<Item> itemList = new ArrayList<Item>(mainItemBase.values());
+        Collections.sort(itemList,Comparator.comparing(Item::getPrice));
+
+        for (Item item : itemList) {
+            System.out.print(item.toString());
+        }
+
     }
 
+    /**
+     * itemListOrderedByAddition will sort by additional
+     */
     public void sortByAdditionDate() {
+        for (int i = 0; i < itemListOrderedByAddition.size(); i++) {
+            System.out.printf("%3d ",i+1);
+            mainItemBase.get(itemListOrderedByAddition.get(i)).showItemList();
+        }
     }
 
     /**
@@ -67,7 +88,7 @@ public class MarketBase {
     public boolean editItem() {
         int ID = CustomerInput.getIntegerInputAnswer("ID or enter 0 to exit");
 
-        while(!base.containsKey(ID) && ID != 0) {
+        while(!mainItemBase.containsKey(ID) && ID != 0) {
             System.out.println("The ID does not exist. Try again or enter 0 to exit.");
             ID = CustomerInput.getIntegerInputAnswer("ID");
         }
@@ -81,17 +102,26 @@ public class MarketBase {
         double price = CustomerInput.getDoubleInputAnswer("price", true);
 
         if (!name.isEmpty())
-            base.get(ID).setName(name);
+            mainItemBase.get(ID).setName(name);
 
         if (price >= 0)
-            base.get(ID).setPrice(price);
+            mainItemBase.get(ID).setPrice(price);
 
         return true;
     }
 
+    /**
+     * just to generate example Items
+     */
     public void generateItems() {
         for (int i=0; i<10; i++) {
-            base.put(i+32894674,new Item("Name" + i, 618+i*13));
+            Item item = new Item("Name" + i, 618+i*13);
+            mainItemBase.put(item.getID(),item);
+            itemListOrderedByAddition.add(item.getID());
         }
+    }
+
+    public int compare(Map.Entry<Integer, Item> a, Map.Entry<Integer, Item> b) {
+        return (int)( b.getValue().getPrice() - a.getValue().getPrice() );
     }
 }
