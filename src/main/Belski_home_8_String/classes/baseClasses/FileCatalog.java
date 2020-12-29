@@ -2,7 +2,6 @@ package classes.baseClasses;
 
 import classes.actions.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -31,7 +30,7 @@ public class FileCatalog {
 
         //command collection
         ActionParent[] actionsArray =
-                new ActionParent[]{new Cd(), new Chmod(),new Ls(),new Mkdir(),new Pwd()};
+                new ActionParent[]{new Cd(), new Touch(),new Ls(),new Mkdir(),new Pwd()};
 
         for (int i = 0; i < actions.length; i++) {
             actions[i] = actions[i].toUpperCase().strip();
@@ -132,7 +131,7 @@ public class FileCatalog {
         }
     }
     /**
-     * parsing absolute Path
+     * parsing absolute Path. First element will will empty if path is OK, or null if ERROR
      * @param absolutePath
      * @return
      */

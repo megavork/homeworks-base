@@ -11,11 +11,12 @@ public class GetFileDirectory {
     private static ArrayList<String> list = new ArrayList();
 
     static {
-        list.add("mkdir");     //create path
+        list.add("mkdir");      //create path
         list.add("chmod ");     //get access
         list.add("pwd");        //show full current path
         list.add("cd ");        //go to the path
         list.add("ls");         //show all files and directories in current path
+        list.add("touch");      //add file to current path
     }
 
     /**
@@ -35,6 +36,11 @@ public class GetFileDirectory {
             try {
                 System.out.print("bash-$: ");
                 tempVal = scan.nextLine();
+
+                if(tempVal.toUpperCase().equals("EXIT")) {
+                    return "EXIT";
+                }
+
 
                 for (int i = 0; i < list.size(); i++) {
                     if(tempVal.startsWith(list.get(i))) {
