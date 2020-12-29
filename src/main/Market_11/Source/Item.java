@@ -1,6 +1,6 @@
 package Source;
 
-public class Item implements Comparable<Item>{
+public class Item implements Comparable<Item> {
     private final int ID;
     private String name = "";
     private double price = 0;
@@ -63,5 +63,13 @@ public class Item implements Comparable<Item>{
     @Override
     public int compareTo(Item o) {
         return (int)(this.price - o.price);
+    }
+
+    public int sortByPrice(Item itm1) {
+        return (int)(this.getPrice() - itm1.getPrice());
+    }
+
+    public int sortById(Item itm1) {
+        return this.getID() - itm1.getID();
     }
 }
