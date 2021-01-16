@@ -2,16 +2,33 @@ package Market;
 
 import MySOUT.Debug;
 import Source.Item;
+import Thread.RefreshFileBase;
 import interfs.interf.SortByID;
 
+import java.io.IOException;
 import java.util.*;
-import java.util.function.Function;
+import java.util.stream.Stream;
 
 public class MarketBase {
     private HashMap<Integer,Item> mainItemBase = new HashMap<>();
     private ArrayList<Integer> itemListOrderedByAddition = new ArrayList<>();
 
     public MarketBase() {
+    }
+
+    /**
+     * will write all items in file
+     * @param mainItemBase
+     * @throws IOException
+     */
+    public synchronized void uploadToFile(HashMap<Integer, Item> mainItemBase) throws IOException {
+        try {
+            RefreshFileBase file = new RefreshFileBase(mainItemBase);
+            file.run();
+        } catch (Exception e) {
+            System.out.println("File refresh was failed.");
+            e.printStackTrace();
+        }
     }
     // **********************************************************************************************
     // ***********************                  SORTERS begin
@@ -74,7 +91,7 @@ public class MarketBase {
     // ***********************                  SORTERS end
     // **********************************************************************************************
     /**
-     * put new Item to market base ant return true
+     * add new Item to market base ant return true
      */
     public boolean setItemToBase() {
         System.out.println("Item ID will generate automatically.");
@@ -83,7 +100,18 @@ public class MarketBase {
         if(!mainItemBase.containsValue(item.getID())) {    //if base do not contains this hashCode
             mainItemBase.put(item.getID(),item);           //put object
             itemListOrderedByAddition.add(item.getID());
-            return true;
+
+            System.out.println("Item was added to base successfully");
+
+            try {
+                uploadToFile(mainItemBase);
+                System.out.println("File-base was refreshed successfully");
+                return true;
+            } catch (IOException e) {
+                System.out.println("File refresh was failed after adding new item.");
+                e.printStackTrace();
+            }
+            return false;
         } else {
             return false;
         }
@@ -100,7 +128,18 @@ public class MarketBase {
             Item item = mainItemBase.get(itemID);
             mainItemBase.remove(itemID);
             itemListOrderedByAddition.remove(item);
-            return true;
+
+            System.out.println("Item was removed from base successfully");
+
+            try {
+                uploadToFile(mainItemBase);
+                System.out.println("File-base was refreshed successfully");
+                return true;
+            } catch (IOException e) {
+                System.out.println("File refresh was failed after adding new item.");
+                e.printStackTrace();
+            }
+            return false;
         } else {
             System.out.println("ID did not find.");
             return false;
@@ -146,7 +185,16 @@ public class MarketBase {
         if (price >= 0)
             mainItemBase.get(ID).setPrice(price);
 
-        return true;
+        try {
+            uploadToFile(mainItemBase);
+            System.out.println("File-base was refreshed successfully");
+            return true;
+        } catch (IOException e) {
+            System.out.println("File refresh was failed after adding new item.");
+            e.printStackTrace();
+        }
+        return false;
+
     }
 
     /**
