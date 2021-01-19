@@ -1,42 +1,49 @@
 package ThreadsBankomat_16.ATM;
 
 import ThreadsBankomat_16.ByCard.ByCard;
-
 import java.util.Random;
 import java.util.function.Predicate;
 
 public class AtmConsumer implements Runnable {
-    int money;
 
     Random rand = new Random();
 
-    Predicate<Integer> isEquals1000 = x -> x > 520;
-    Predicate<Integer> isLessOrEquals0 = x -> x <= 490;
+    Predicate<Integer> isLessThen1000 = x -> x > 1000;
+    Predicate<Integer> isLessOrEquals0 = x -> x <= 0;
 
+    private void needToSleep() {
+        long time = (rand.nextInt(4)) + 2;    //генерируем число секунд от 2 до 5
+        try {
+            Thread.sleep(time * 1000);
+        } catch ( InterruptedException e ) {
+
+        }
+    }
 
     @Override
     public void run() {
 
-        while (!isEquals1000.test(ByCard.getMoney()) &&
+        int moneys = (rand.nextInt(6)) + 5;   //генерируем количество средств от 5 до 10
+
+        while (!isLessThen1000.test(ByCard.getMoney()) &&
                 !isLessOrEquals0.test(ByCard.getMoney())) {          //пока средств мешьне 1000
 
-            long time = (rand.nextInt(4)) + 2;    //генерируем число секунд от 2 до 5
-            int moneys = (rand.nextInt(6)) + 5;   //генерируем количество средств от 5 до 10
+            needToSleep();
 
-            this.money = ByCard.getMoney() - moneys;
-            ByCard.setMoney(this.money);
+            System.out.println(ByCard.getMoney() + " on card before.");
 
-            try {
-                Thread.sleep(time * 1000);
-            } catch (InterruptedException e) {
-
-            }
-            if (!isEquals1000.test(ByCard.getMoney()) &&
-                    !isLessOrEquals0.test(ByCard.getMoney())) {
-                System.out.println(ByCard.getMoney() + " on card before.");
-                System.out.println(this.hashCode() + ": Was increased: " + this.money);
+            if (!Thread.currentThread().isInterrupted() && !ByCard.isIsDone()) {
+                ByCard.setMoney(ByCard.getMoney() - moneys);
+                System.out.println(this.hashCode() + ": Was increased: " + ByCard.getMoney());
             }
         }
-        Thread.currentThread().interrupt();
+        try {
+            ByCard.setIsDone(true);
+            Thread.currentThread().notifyAll();
+            Thread.currentThread().interrupt();
+            Thread.currentThread().wait();
+        } catch ( InterruptedException e ) {
+            e.printStackTrace();
+        }
     }
 }
