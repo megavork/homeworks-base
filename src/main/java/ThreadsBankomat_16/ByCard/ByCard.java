@@ -1,23 +1,26 @@
 package ThreadsBankomat_16.ByCard;
 
+import ThreadsBankomat_16.Checker.TimeMoneyChecker;
+
 public class ByCard {
 
-    private static int money = 500;
-    private static boolean isDone = false;
+    private int currentMoney = TimeMoneyChecker.getInitialMoney();
+    private boolean isDone = false;
 
-    public static synchronized int getMoney() {
-        return money;
+    public Integer getCurrentMoney() {
+        return currentMoney;
     }
 
-    public static synchronized void setMoney(int money) {
-        ByCard.money = money;
+    public void setCurrentMoney(int currentMoney) {
+        this.currentMoney = currentMoney;
     }
 
-    public static boolean isIsDone() {
+    public boolean isDone() {
         return isDone;
     }
 
-    public static void setIsDone(boolean isDone) {
-        ByCard.isDone = isDone;
+    public void setIsDone(boolean isDone) {
+        this.isDone = isDone;
     }
+
 }
