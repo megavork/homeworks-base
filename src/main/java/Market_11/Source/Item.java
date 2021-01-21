@@ -1,30 +1,44 @@
 package Market_11.Source;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlType(propOrder = {"ID", "itemName", "price"}, name = "item")
 public class Item implements Comparable<Item> {
-    private final int ID;
-    private String name = "";
+    private final Integer ID;
+    private String itemName = "";
     private double price = 0;
 
     public Item(String name, double price) {
-        this.name = name;
+        this.itemName = name;
         this.price = price;
         ID = this.hashCode();
     }
 
+    public Item getObject() {
+        return this;
+    }
+
+    @JsonProperty("ID")
+    @XmlElement(name = "ID")
     public int getID() {
         return ID;
     }
 
-    public String getName() {
-        return name;
+    @JsonProperty("itemName")
+    public String getItemName() {
+        return itemName;
     }
 
+    @JsonProperty("price")
     public double getPrice() {
         return price;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
     public void setPrice(double price) {
@@ -32,7 +46,7 @@ public class Item implements Comparable<Item> {
     }
 
     public void showItemList() {
-        System.out.printf("   ID: %-10d Name: %-10s Price: %-6.2f%n", ID, name, price);
+        System.out.printf("   ID: %-10d Name: %-10s Price: %-6.2f%n", ID, itemName, price);
     }
 
     @Override
@@ -46,8 +60,7 @@ public class Item implements Comparable<Item> {
     @Override
     public int hashCode() {
         int result = 0;
-        result += 19 * Integer.hashCode(ID);
-        result += 19 * name.hashCode();
+        result += 19 * itemName.hashCode();
         result += 19 * Double.hashCode(price);
 
         if (result < 0)
@@ -57,7 +70,7 @@ public class Item implements Comparable<Item> {
     }
 
     public String toString() {
-        return String.format("ID: %-10d Name: %-10s Price: %-6.2f%n", ID, name, price);
+        return String.format("ID: %-10d Name: %-10s Price: %-6.2f%n", ID, itemName, price);
     }
 
     @Override

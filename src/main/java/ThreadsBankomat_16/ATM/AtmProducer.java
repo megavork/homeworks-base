@@ -24,7 +24,7 @@ public class AtmProducer implements Runnable {
         try {
             Thread.sleep(time);
         } catch ( InterruptedException e ) {
-
+            e.printStackTrace();
         }
     }
 
@@ -42,9 +42,7 @@ public class AtmProducer implements Runnable {
 
         while (!card.isDone()) {          //пока средств достаточно
 
-            //System.out.println(ByCard.getMoney() + " on card before.");
-
-            synchronized (card.getCurrentMoney()) {
+            synchronized (card) {
                 if (!Thread.currentThread().isInterrupted() && !card.isDone()) {
                     currentStateOfMoney = card.getCurrentMoney() + moneyToIncrease;
                     card.setCurrentMoney(currentStateOfMoney);
@@ -57,9 +55,7 @@ public class AtmProducer implements Runnable {
             }
             needToSleep();
         }
-        //Thread.currentThread().notifyAll();
         Thread.currentThread().interrupt();
-        //Thread.currentThread().wait();
 
     }
 }

@@ -9,7 +9,10 @@ public class Menu {
     private static String line6 = "_4_ Add new item to the base.";
     private static String line7 = "_5_ Remove item from the base.";
     private static String line8 = "_6_ Edit Item.";
-    private static String line9 = "_0_ Exit.";
+    private static String line9 = "_7_ Show XML.";
+    private static String line10 = "_8_ Convert Items to Json";
+    private static String line11 = "_9_ Convert Json to Java Objects";
+    private static String line12 = "_0_ Exit.";
 
     /**
      * will show all menu lines
@@ -24,6 +27,9 @@ public class Menu {
         System.out.println(line7);
         System.out.println(line8);
         System.out.println(line9);
+        System.out.println(line10);
+        System.out.println(line11);
+        System.out.println(line12);
     }
 
     /**
@@ -38,6 +44,9 @@ public class Menu {
         System.out.println(line7);
         System.out.println(line8);
         System.out.println(line9);
+        System.out.println(line10);
+        System.out.println(line11);
+        System.out.println(line12);
     }
 
 }

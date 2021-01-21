@@ -5,15 +5,23 @@ import Market_11.Source.Item;
 import Market_11.Thread.RefreshFileBase;
 import Market_11.interfs.interf.SortByID;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Stream;
 
+@XmlType(propOrder = {"base"}, name = "mainBase")
+@XmlRootElement
 public class MarketBase {
     private HashMap<Integer, Item> mainItemBase = new HashMap<>();
     private ArrayList<Integer> itemListOrderedByAddition = new ArrayList<>();
 
-    public MarketBase() {
+    @XmlElementWrapper(name = "mainBase")
+    @XmlElement(name = "item")
+    public HashMap<Integer, Item> getBase() {
+        return mainItemBase;
     }
 
     /**
@@ -113,9 +121,8 @@ public class MarketBase {
                 return true;
             } catch (IOException e) {
                 System.out.println("File refresh was failed after adding new item.");
-                e.printStackTrace();
+                return false;
             }
-            return false;
         } else {
             return false;
         }
@@ -186,7 +193,7 @@ public class MarketBase {
         double price = CustomerInput.getDoubleInputAnswer("price", true);
 
         if (!name.isEmpty())
-            mainItemBase.get(ID).setName(name);
+            mainItemBase.get(ID).setItemName(name);
 
         if (price >= 0)
             mainItemBase.get(ID).setPrice(price);
@@ -239,7 +246,6 @@ public class MarketBase {
                     "0 exit.\n" +
                     "Enter number of sort: ");
         }
-
         switch (answer) {
             case 0:
                 return;
@@ -254,4 +260,5 @@ public class MarketBase {
                 break;
         }
     }
+
 }

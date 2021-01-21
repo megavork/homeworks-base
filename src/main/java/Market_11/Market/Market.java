@@ -1,5 +1,13 @@
 package Market_11.Market;
 
+import Market_11.converter.HeyJackson;
+import Market_11.Source.Item;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import java.io.IOException;
+
 public class Market {
     MarketBase base;
 
@@ -8,7 +16,7 @@ public class Market {
         base.generateItems();
     }
 
-    public boolean checkAction() {
+    public boolean checkAction() throws JAXBException, IOException {
         int number = CustomerInput.getIntegerInputAnswer("options number");
 
         switch (number) {
@@ -31,10 +39,10 @@ public class Market {
                 base.editItem();
                 return true;
             case 7:
-                base.sortByIdDescendingOrder();
+                marshallItems();
                 return true;
             case 8:
-                base.sortByIdAscendingOrder();
+                HeyJackson.toJSON(base.getBase());
                 return true;
             case 0:
                 return false;
@@ -42,6 +50,17 @@ public class Market {
                 System.out.println("Wrong answer. Try again.");
                 return true;
         }
+    }
 
+    public MarketBase getBase() {
+        return base;
+    }
+
+    public void marshallItems() throws JAXBException {
+        JAXBContext context = JAXBContext.newInstance(base.getClass());
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        marshaller.marshal(getBase(), System.out);
+        System.out.println("");
     }
 }
