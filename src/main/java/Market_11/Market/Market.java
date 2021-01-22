@@ -51,16 +51,16 @@ public class Market {
                 return true;
         }
     }
-
+/*
     public MarketBase getBase() {
         return base;
-    }
+    }*/
 
     public void marshallItems() throws JAXBException {
         JAXBContext context = JAXBContext.newInstance(base.getClass());
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        marshaller.marshal(getBase(), System.out);
+        marshaller.marshal(base.getBase(), System.out);
         System.out.println("");
     }
 }

@@ -1,11 +1,18 @@
 package Market_11.Source;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlType(propOrder = {"ID", "itemName", "price"}, name = "item")
+@JsonAutoDetect
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "ID")
 public class Item implements Comparable<Item> {
     private final Integer ID;
     private String itemName = "";

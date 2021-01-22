@@ -1,9 +1,12 @@
 package Market_11.Market;
 
 import Market_11.MySOUT.Debug;
+
 import Market_11.Source.Item;
 import Market_11.Thread.RefreshFileBase;
 import Market_11.interfs.interf.SortByID;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -14,7 +17,9 @@ import java.util.*;
 
 @XmlType(propOrder = {"base"}, name = "mainBase")
 @XmlRootElement
+
 public class MarketBase {
+    @JsonBackReference
     private HashMap<Integer, Item> mainItemBase = new HashMap<>();
     private ArrayList<Integer> itemListOrderedByAddition = new ArrayList<>();
 

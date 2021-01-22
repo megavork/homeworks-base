@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class HeyJackson {
     private final static String jacksonFile = "jackson.json";
 
-    public static void toJSON(HashMap map) throws IOException {
+    public static void toJSON(HashMap<Integer, Item> map) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(new File(jacksonFile), map);
         System.out.println("Jackson here!");
